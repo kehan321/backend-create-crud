@@ -1,21 +1,19 @@
 {
-  "name": "ejs-bakend",
+  "name": "ejs-app",
   "version": "1.0.0",
-  "main": "app.js",
+  "description": "A Node.js app using EJS",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "node index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "body-parser": "^1.20.3",
-    "dotenv": "^16.4.7",
-    "ejs": "^3.1.10",
-    "express": "^4.21.2",
-    "mongoose": "^8.8.4",
-    "nodemon": "^3.1.7"
-  }
+    "express": "^4.17.1",
+    "ejs": "^3.1.6"
+  },
+  "engines": {
+    "node": "14.x"
+  },
+  "author": "",
+  "license": "ISC"
 }
