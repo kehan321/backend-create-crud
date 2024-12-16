@@ -1,19 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title %></title>
-  <link rel="stylesheet" href="/css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
 </head>
 <body>
-  <h1>Welcome to <%= title %></h1>
-  <h2>User List</h2>
-  <ul>
-    <% users.forEach(user => { %>
-      <li><%= user.name %> (<%= user.email %>, <%= user.age %> years old)</li>
-    <% }); %>
-  </ul>
-  <a href="/add-user">Add User</a>
+    <h1>User Management</h1>
+    <form action="/users" method="POST">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="number" name="age" placeholder="Age" required>
+        <button type="submit">Add User</button>
+    </form>
+    <ul>
+        <% users.forEach(user => { %>
+            <li>
+                <strong><%= user.name %></strong> (<%= user.email %>), Age: <%= user.age %>
+                <form action="/users/delete/<%= user._id %>" method="POST" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+                <a href="/users/edit/<%= user._id %>">Edit</a>
+            </li>
+        <% }); %>
+    </ul>
 </body>
 </html>

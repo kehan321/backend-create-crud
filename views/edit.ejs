@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User</title>
+</head>
+<body>
+    <h1>Edit User</h1>
+    <form action="/users/edit/<%= user._id %>" method="POST">
+        <input type="text" name="name" value="<%= user.name %>" required>
+        <input type="email" name="email" value="<%= user.email %>" required>
+        <input type="number" name="age" value="<%= user.age %>" required>
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html>
