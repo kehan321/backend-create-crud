@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Management</title>
 </head>
+
 <body>
     <h1>User Management</h1>
     <form action="/users" method="POST">
@@ -14,7 +16,7 @@
         <button type="submit">Add User</button>
     </form>
     <ul>
-        <% users.forEach(user => { %>
+        <!-- <% users.forEach(user => { %>
             <li>
                 <strong><%= user.name %></strong> (<%= user.email %>), Age: <%= user.age %>
                 <form action="/users/delete/<%= user._id %>" method="POST" style="display:inline;">
@@ -22,8 +24,25 @@
                 </form>
                 <a href="/users/edit/<%= user._id %>">Edit</a>
             </li>
-        <% }); %>
-        <!-- ? -->
+
+
+        <% }); %> -->
+
+        <% users.forEach(user => { %>
+            <li style="margin-top: 10px;">
+                 Name: <%= user.name %> </strong>
+                <p>Email:   <%= user.email %></p>
+                <P> Age:  <%=  user.age %></P>
+                <form action="/users/delete/<%= user._id %>" method = "POST" >
+                    <button type="submit">Delete</button>
+                    <button ><a href ="/users/edit/<%= user._id %>" type="submit">Edit</a></button>
+                </form>
+                
+            </li>
+
+            <% }); %>
+                <!-- ? -->
     </ul>
 </body>
+
 </html>
