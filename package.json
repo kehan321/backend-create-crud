@@ -8,8 +8,9 @@
     "build": "echo 'No build step required'"
   },
   "dependencies": {
-    "express": "^4.17.1",
-    "ejs": "^3.1.6"
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1"
   },
   "engines": {
     "node": "22.x"
