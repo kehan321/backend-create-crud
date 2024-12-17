@@ -3,16 +3,17 @@ const mongoose = require('mongoose');
 const path = require('path');
 require('dotenv').config();
 
-
 const app = express();
-const PORT = 4000;
-
+const PORT = process.env.PORT || 4001;
 
 const mongoURI = process.env.MONGO_URI;
 // MongoDB Connection
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongoURI)
     .then(() => console.log('Connected to MongoDB'))
-    .catch(err => console.error('MongoDB connection error:', err));
+    .catch(err => {
+        console.error('MongoDB connection error:', err);
+        process.exit(1); // Exit process with failure
+    });
 
 // Middleware
 app.use(express.json());
@@ -23,8 +24,8 @@ app.set('view engine', 'ejs');
 // User Schema and Model
 const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    age: { type: Number, required: true },
+    email: { type: String, required: true, unique: true, match: /.+\@.+\..+/ },
+    age: { type: Number, required: true, min: 1 }
 });
 
 const User = mongoose.model('User', userSchema);
@@ -37,6 +38,7 @@ app.get('/', async (req, res) => {
         const users = await User.find();
         res.render('index', { users });
     } catch (err) {
+        console.error(err);
         res.render('error', { message: 'Error fetching users' });
     }
 });
@@ -49,6 +51,7 @@ app.post('/users', async (req, res) => {
         await newUser.save();
         res.redirect('/');
     } catch (err) {
+        console.error(err);
         res.render('error', { message: 'Error adding user' });
     }
 });
@@ -59,6 +62,7 @@ app.get('/users/edit/:id', async (req, res) => {
         const user = await User.findById(req.params.id);
         res.render('edit', { user });
     } catch (err) {
+        console.error(err);
         res.render('error', { message: 'Error fetching user details' });
     }
 });
@@ -70,6 +74,7 @@ app.post('/users/edit/:id', async (req, res) => {
         await User.findByIdAndUpdate(req.params.id, { name, email, age });
         res.redirect('/');
     } catch (err) {
+        console.error(err);
         res.render('error', { message: 'Error updating user' });
     }
 });
@@ -80,6 +85,7 @@ app.post('/users/delete/:id', async (req, res) => {
         await User.findByIdAndDelete(req.params.id);
         res.redirect('/');
     } catch (err) {
+        console.error(err);
         res.render('error', { message: 'Error deleting user' });
     }
 });
